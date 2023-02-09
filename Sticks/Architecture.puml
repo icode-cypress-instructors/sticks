@@ -1,0 +1,46 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "Sticks" {
+
+    abstract class SticksRunner <<static>> {
+        + void Main()
+    }
+'    note left: Is responsible for getting MaxTake\nand the initial stick count from the player.
+
+    class SticksGame {
+        {static} + int MinTake
+        + int MaxTake
+        - int _sticks
+        - IPlayer[] _players
+        + {static} int Prompt(string)
+        + void Play()
+    }
+
+    package "Sticks.Players" {
+        interface IPlayer <<interface>> {
+            string Name
+            int Take()
+        }
+
+        class Human
+        abstract class Bot {
+            -string _id
+        }
+
+        class RandomBot
+        class SmartBot
+        class BadActor
+    }
+
+    SticksRunner *- SticksGame : Creates and runs >
+    SticksRunner -> SticksGame : ""
+    SticksGame *-- "2" IPlayer
+    IPlayer <|.- Human
+    IPlayer <|.- Bot
+    Bot <|-- RandomBot
+    Bot <|-- SmartBot
+    Bot <|-- BadActor
+
+}
+@enduml

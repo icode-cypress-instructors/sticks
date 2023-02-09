@@ -1,0 +1,27 @@
+name: Build and Test
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '**.cs'
+      - '**.csproj'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Build project
+        run: dotnet build --configuration Release
+
+      - name: Test project
+        run: dotnet test --configuration Release

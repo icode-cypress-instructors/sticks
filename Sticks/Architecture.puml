@@ -25,7 +25,7 @@ package "Sticks" {
 
         class Human
         abstract class Bot {
-            -string _id
+            -int _id
         }
 
         class RandomBot
